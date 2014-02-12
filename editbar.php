@@ -40,12 +40,31 @@ if ($_POST['redigerebar']){
 	$var1=$_POST['redigerebar'];
 	echo "Fors√ker √•redigere Bar: " . $var1;
 	$res1=mysqli_query($con,"SELECT * FROM barer WHERE bid=\"$var1\"");
-	if( !(mysqli_fetch_row($res1)) ){
-		echo "Baren eksisterer ikke";
+	if($row = mysqli_fetch_array($res1) ){
+		echo "Baren eksisterer";
+		echo "ID: " . $row['bid'] . "Navn: " . $row['navn'];
+		echo"<h3>Redigere</h3>
+		<form method=\"post\">
+		<input type=\"hidden\" name=\"bid\" value={$row['bid']}>
+		Navn: <input type=\"text\" value={$row['navn']} name=\"nyttnavn\">
+		<input type=\"submit\" name= testa2 value=\"Lagre endring\">
+		</form>";		
+
+		
 		}
 	else{
-		echo "Baren esksisterer og kan redigeres";
+		echo "Baren esksisterer IKKE ! !";
 		}
+
+}
+//HENGER SAMMEN MED redigerevar POST INFO
+if ($_POST['nyttnavn']){
+	$var1=$_POST['nyttnavn'];
+	$var2=$_POST['bid'];
+	echo $var1;
+	mysqli_query($con,"UPDATE barer SET navn=\"$var1\" WHERE bid=\"$var2\"");
+	
+
 
 }
 
