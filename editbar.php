@@ -1,5 +1,4 @@
 <?php
-
 $con=mysqli_connect("localhost","root","donald2k","lagerstatus");
 // Check connection
 if (mysqli_connect_errno())
@@ -7,12 +6,11 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-// enklerer Ã¥ jobbe med var1
-$var1=$_POST['barnavn'];
-
+//////////////////////// POST WORK //////////////////////
 // Dersom barnavn eksisterer i POST
-if ($var1){
+if ($_POST['barnavn']){
 	//query for om navnet eksisterer
+	$var1=$_POST['barnavn'];
 	$query="SELECT navn FROM barer WHERE navn=\"$var1\" LIMIT 1";
 	$res1=mysqli_query($con, $query);
 	
@@ -29,10 +27,36 @@ if ($var1){
 }
 
 
+if ($_POST['slettebar']){
+	if($_POST['heltsikker'] === 'sikker'){
+		$var1=$_POST['slettebar'];
+		mysqli_query($con,"DELETE FROM barer WHERE bid=\"$var1\"");
+		echo "BAR: " . $var1 . "SLETTET";
+	}
+
+}
+
+if ($_POST['redigerebar']){
+	$var1=$_POST['redigerebar'];
+	echo "ForsÃker Ã¥redigere Bar: " . $var1;
+	$res1=mysqli_query($con,"SELECT * FROM barer WHERE bid=\"$var1\"");
+	if( !(mysqli_fetch_row($res1)) ){
+		echo "Baren eksisterer ikke";
+		}
+	else{
+		echo "Baren esksisterer og kan redigeres";
+		}
+
+}
+
+
+//////////////////////// POST WORK ///////////////////////
+
+
 // oversikt over eksisterende barer
 $resultatbarer = mysqli_query($con,"SELECT * FROM barer");
 
-echo "<h2>Barer</h2>";
+echo "<a href "."><h2>Barer</h2></a>";
 echo "<table border='1'>
 <tr>
 <th>ID</th>
@@ -52,12 +76,30 @@ echo "</table>";
 echo "<h2>Legg til bar</h2>";
 echo"
 <form method=\"post\">
-Name: <input type=\"text\" name=\"barnavn\"><br>
+Navn: <input type=\"text\" name=\"barnavn\">
 <input type=\"submit\" value=\"Legg til\">
 </form>";
 
-// Form for Ã¥
+// Form for Ã ¥slette barer
+echo "<h2>Slette bar</h2>";
+echo"
+<form method=\"post\">
+ID: <input type=\"text\" name=\"slettebar\">
+Er du helt sikker?<input type=\"checkbox\" name=\"heltsikker\" value=\"sikker\">
+<input type=\"submit\" value=\"SLETT BAR\">
+</form>";
 
+// Form for Ã¥ redigere barer
+echo "<h2>Redigere bar</h2>";
+echo"
+<form method=\"post\">
+ID: <input type=\"text\" name=\"redigerebar\">
+<input type=\"submit\" value=\"Rediger\">
+</form>";
 
 
 ?>
+
+
+
+
