@@ -7,9 +7,11 @@ if (mysqli_connect_errno())
   }
 
 //////////////////////// POST WORK //////////////////////
-// Dersom barnavn eksisterer i POST
-if ($_POST['barnavn']){
+// Dersom hidden "nybar"  eksisterer i POST (
+// hidden name må også ha en verdi for å bli catchet $_POST
+if ($_POST['nybar']){
 	//query for om navnet eksisterer
+	echo $_POST['nybar'];
 	$var1=$_POST['barnavn'];
 	$query="SELECT navn FROM barer WHERE navn=\"$var1\" LIMIT 1";
 	$res1=mysqli_query($con, $query);
@@ -27,23 +29,23 @@ if ($_POST['barnavn']){
 }
 
 
-if ($_POST['slettebar']){
+if ($_POST['slettbar']){
 	if($_POST['heltsikker'] === 'sikker'){
-		$var1=$_POST['slettebar'];
+		$var1=$_POST['barnavn'];
 		mysqli_query($con,"DELETE FROM barer WHERE bid=\"$var1\"");
 		echo "BAR: " . $var1 . "SLETTET";
 	}
 
 }
-
-if ($_POST['redigerebar']){
-	$var1=$_POST['redigerebar'];
+// Redigere bar
+if ($_POST['redigerbar']){
+	$var1=$_POST['barnavn'];
 	echo "Fors�ker åredigere Bar: " . $var1;
 	$res1=mysqli_query($con,"SELECT * FROM barer WHERE bid=\"$var1\"");
 	if($row = mysqli_fetch_array($res1) ){
 		echo "Baren eksisterer";
 		echo "ID: " . $row['bid'] . "Navn: " . $row['navn'];
-		echo"<h3>Redigere</h3>
+		echo "<h3>Redigere</h3>
 		<form method=\"post\">
 		<input type=\"hidden\" name=\"bid\" value={$row['bid']}>
 		Navn: <input type=\"text\" value={$row['navn']} name=\"nyttnavn\">
@@ -80,6 +82,10 @@ echo "<table border='1'>
 <tr>
 <th>ID</th>
 <th>Barnavn</th>
+<th>Lokasjon</th>
+<th>Ant. Frivillige</th>
+<th>Ansvarlig</th>
+<th>Bilde</th>
 </tr>";
 
 while($row = mysqli_fetch_array($resultatbarer))
@@ -95,6 +101,7 @@ echo "</table>";
 echo "<h2>Legg til bar</h2>";
 echo"
 <form method=\"post\">
+<input type=\"hidden\" name=\"nybar\" value=\"1\"> 
 Navn: <input type=\"text\" name=\"barnavn\">
 <input type=\"submit\" value=\"Legg til\">
 </form>";
@@ -103,7 +110,8 @@ Navn: <input type=\"text\" name=\"barnavn\">
 echo "<h2>Slette bar</h2>";
 echo"
 <form method=\"post\">
-ID: <input type=\"text\" name=\"slettebar\">
+<input type=\"hidden\" name=\"slettbar\" value=\"1\"> 
+ID: <input type=\"text\" name=\"barnavn\">
 Er du helt sikker?<input type=\"checkbox\" name=\"heltsikker\" value=\"sikker\">
 <input type=\"submit\" value=\"SLETT BAR\">
 </form>";
@@ -112,7 +120,8 @@ Er du helt sikker?<input type=\"checkbox\" name=\"heltsikker\" value=\"sikker\">
 echo "<h2>Redigere bar</h2>";
 echo"
 <form method=\"post\">
-ID: <input type=\"text\" name=\"redigerebar\">
+<input type=\"hidden\" name=\"redigerbar\" value=\"1\"> 
+ID: <input type=\"text\" name=\"barnavn\">
 <input type=\"submit\" value=\"Rediger\">
 </form>";
 

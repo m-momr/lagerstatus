@@ -14,8 +14,12 @@ $resultatstatus = mysqli_query($con,"SELECT * FROM status");
 echo "<h2>Barer</h2>";
 echo "<table border='1'>
 <tr>
-<th>ID</th>
+<th>BID</th>
 <th>Barnavn</th>
+<th>Lokasjon</th>
+<th>Ant. Frivillige</th>
+<th>Ansvarlig</th>
+<th>Bilde</th>
 </tr>";
 
 while($row = mysqli_fetch_array($resultatbarer))
@@ -23,6 +27,10 @@ while($row = mysqli_fetch_array($resultatbarer))
   echo "<tr>";
   echo "<td>" . $row['bid'] . "</td>";
   echo "<td>" . $row['navn'] . "</td>";
+  echo "<td>" . $row['lokasjon'] . "</td>";
+  echo "<td>" . $row['frivillige'] . "</td>";
+  echo "<td>" . $row['ansvarlig'] . "</td>";
+  echo "<td><img src=\"bilder/" . $row['bilde'] . "\"></td>";
   echo "</tr>";
   }
 echo "</table>";
