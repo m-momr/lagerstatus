@@ -11,9 +11,8 @@ if (mysqli_connect_errno())
 // hidden name må også ha en verdi for å bli catchet $_POST
 if ($_POST['nybar']){
 	//query for om navnet eksisterer
-	echo $_POST['nybar'];
-	$var1=$_POST['barnavn'];
-	$query="SELECT navn FROM barer WHERE navn=\"$var1\" LIMIT 1";
+	$var_barnavn=$_POST['barnavn'];
+	$query="SELECT navn FROM barer WHERE navn=\"$var_barnavn\" LIMIT 1";
 	$res1=mysqli_query($con, $query);
 	
 	if($row = $res1->fetch_row()){ //$row[0] $row[1] skaper row-arrawy med linjer over resultat
@@ -22,7 +21,15 @@ if ($_POST['nybar']){
 
 	else{	
 	        // IKKE ' ' rundt tabellnavn, " " rundt verdi-variabel
-	        $query="INSERT INTO barer (navn) VALUES (\"$var1\")";
+	        $var_barnavn=$_POST['barnavn'];
+	        $var_lokasjon=$_POST['lokasjon'];
+	        $var_frivillige=$_POST['frivillige'];
+	        $var_ansvarlig=$_POST['ansvarlig'];
+	        $var_bilde=$_POST['bilde'];
+
+		$query="INSERT INTO barer (navn, lokasjon, frivillige, ansvarlig, bilde) 
+		VALUES (\"$var_barnavn\",\"$var_lokasjon\",\"$var_frivillige\",\"$var_ansvarlig\",\"$var_bilde\")";
+	
 	        mysqli_query($con, $query);
 		echo "$var1 har blitt lagt til";
 		}
@@ -44,11 +51,17 @@ if ($_POST['redigerbar']){
 	$res1=mysqli_query($con,"SELECT * FROM barer WHERE bid=\"$var1\"");
 	if($row = mysqli_fetch_array($res1) ){
 		echo "Baren eksisterer";
-		echo "ID: " . $row['bid'] . "Navn: " . $row['navn'];
+		echo "DEBUG : ID: " . $row['bid'] . "Navn: " . $row['navn'];
 		echo "<h3>Redigere</h3>
 		<form method=\"post\">
+		<input type=\"hidden\" name=\"oppdatertinfo\" value=\"1\">
 		<input type=\"hidden\" name=\"bid\" value={$row['bid']}>
-		Navn: <input type=\"text\" value={$row['navn']} name=\"nyttnavn\">
+		Navn: <input type=\"text\" value={$row['navn']} name=\"barnavn\">
+		Lokasjon: <input type=\"text\" value={$row['lokasjon']} name=\"lokasjon\">
+		Frivillige: <input type=\"text\" value={$row['frivillige']} name=\"frivillige\">
+		Ansvarlig: <input type=\"text\" value={$row['ansvarlig']} name=\"ansvarlig\">
+		Bilde: <input type=\"text\" value={$row['bilde']} name=\"bilde\">
+
 		<input type=\"submit\" name= testa2 value=\"Lagre endring\">
 		</form>";		
 
@@ -60,11 +73,18 @@ if ($_POST['redigerbar']){
 
 }
 //HENGER SAMMEN MED redigerevar POST INFO
-if ($_POST['nyttnavn']){
-	$var1=$_POST['nyttnavn'];
-	$var2=$_POST['bid'];
-	echo $var1;
-	mysqli_query($con,"UPDATE barer SET navn=\"$var1\" WHERE bid=\"$var2\"");
+if ($_POST['oppdatertinfo']){
+	
+	$var_bid=$_POST['bid'];
+
+        $var_barnavn=$_POST['barnavn'];
+        $var_lokasjon=$_POST['lokasjon'];
+        $var_frivillige=$_POST['frivillige'];
+        $var_ansvarlig=$_POST['ansvarlig'];
+        $var_bilde=$_POST['bilde'];
+
+	mysqli_query($con,"UPDATE barer SET navn=\"$var_barnavn\", lokasjon=\"$var_lokasjon\",
+	frivillige=\"$var_frivillige\", ansvarlig=\"$var_ansvarlig\", bilde=\"$var_bilde\"  WHERE bid=\"$var_bid\"");
 	
 
 
@@ -93,6 +113,11 @@ while($row = mysqli_fetch_array($resultatbarer))
   echo "<tr>";
   echo "<td>" . $row['bid'] . "</td>";
   echo "<td>" . $row['navn'] . "</td>";
+  echo "<td>" . $row['lokasjon'] . "</td>";
+  echo "<td>" . $row['frivillige'] . "</td>";
+  echo "<td>" . $row['ansvarlig'] . "</td>";
+  echo "<td>" . $row['bilde'] . "</td>";
+
   echo "</tr>";
   }
 echo "</table>";
@@ -103,6 +128,10 @@ echo"
 <form method=\"post\">
 <input type=\"hidden\" name=\"nybar\" value=\"1\"> 
 Navn: <input type=\"text\" name=\"barnavn\">
+Lokasjon: <input type=\"text\" name=\"lokasjon\">
+Frivillige: <input type=\"text\" name=\"frivillige\">
+Ansvarlig: <input type=\"text\" name=\"ansvarlig\">
+Bilde: <input type=\"text\" name=\"bilde\">
 <input type=\"submit\" value=\"Legg til\">
 </form>";
 

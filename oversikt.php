@@ -40,8 +40,11 @@ echo "</table>";
 echo "<h2>Varer</h2>";
 echo "<table border='1'>
 <tr>
-<th>ID</th>
-<th>Barnavn</th>
+<th>VID</th>
+<th>Varenavn</th>
+<th>Alkoholprosent</th>
+<th>Leverand√r</th>
+<th>Bilde</th>
 </tr>";
 
 while($row = mysqli_fetch_array($resultatvarer))
@@ -49,6 +52,10 @@ while($row = mysqli_fetch_array($resultatvarer))
   echo "<tr>";
   echo "<td>" . $row['vid'] . "</td>";
   echo "<td>" . $row['navn'] . "</td>";
+  echo "<td>" . $row['alkoholprosent'] . "</td>";
+  echo "<td>" . $row['leverandor'] . "</td>";
+  echo "<td>" . $row['bilde'] . "</td>";
+
   echo "</tr>";
   }
 echo "</table>";
