@@ -56,11 +56,11 @@ if ($_POST['redigerbar']){
 		<form method=\"post\">
 		<input type=\"hidden\" name=\"oppdatertinfo\" value=\"1\">
 		<input type=\"hidden\" name=\"vid\" value={$row['vid']}>
-		Navn: <input type=\"text\" value={$row['navn']} name=\"varenavn\">
-		Alkoholprosent: <input type=\"text\" value={$row['alkoholprosent']} name=\"alkoholprosent\">
-		Liter pr. enhet: <input type=\"text\" value={$row['literperenhet']} name=\"literperenhet\">
-		Enhet pr. kasse: <input type=\"text\" value={$row['enhetperkasse']} name=\"enhetperkasse\">
-		Bilde: <input type=\"text\" value={$row['bilde']} name=\"bilde\">
+		Navn: <input type=\"text\" value={$row['navn']} name=\"varenavn\"><br>
+		Alkoholprosent: <input type=\"text\" value={$row['alkoholprosent']} name=\"alkoholprosent\"><br>
+		Liter pr. enhet: <input type=\"text\" value={$row['literperenhet']} name=\"literperenhet\"><br>
+		Enhet pr. kasse: <input type=\"text\" value={$row['enhetperkasse']} name=\"enhetperkasse\"><br>
+		Bilde: <input type=\"text\" value={$row['bilde']} name=\"bilde\"><br>
 
 		<input type=\"submit\" value=\"Lagre endring\">
 		</form>";		
@@ -129,11 +129,11 @@ echo "<h2>Legg til vare</h2>";
 echo"
 <form method=\"post\">
 <input type=\"hidden\" name=\"nyvare\" value=\"1\"> 
-Navn: <input type=\"text\" name=\"varenavn\">
-Alkoholprosent <input type=\"text\" name=\"alkoholprosent\">
-Liter pr. enhet <input type=\"text\" name=\"literperenhet\">
-Enheter pr. kasse <input type=\"text\" name=\"enhetperkasse\">
-Bilde: <input type=\"text\" name=\"bilde\">
+Navn: <input type=\"text\" value=\"varenavn\" name=\"varenavn\"><br>
+Alkoholprosent <input type=\"text\"  value=\"0\" name=\"alkoholprosent\"><br>
+Liter pr. enhet <input type=\"text\"  value=\"0\" name=\"literperenhet\"><br>
+Enheter pr. kasse <input type=\"text\"  value=\"0\" name=\"enhetperkasse\"><br>
+Bilde: <input type=\"text\"  value=\"0\" name=\"bilde\"><br>
 <input type=\"submit\" value=\"Legg til\">
 </form>";
 

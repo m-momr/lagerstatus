@@ -56,11 +56,11 @@ if ($_POST['redigerbar']){
 		<form method=\"post\">
 		<input type=\"hidden\" name=\"oppdatertinfo\" value=\"1\">
 		<input type=\"hidden\" name=\"bid\" value={$row['bid']}>
-		Navn: <input type=\"text\" value={$row['navn']} name=\"barnavn\">
-		Lokasjon: <input type=\"text\" value={$row['lokasjon']} name=\"lokasjon\">
-		Frivillige: <input type=\"text\" value={$row['frivillige']} name=\"frivillige\">
-		Ansvarlig: <input type=\"text\" value={$row['ansvarlig']} name=\"ansvarlig\">
-		Bilde: <input type=\"text\" value={$row['bilde']} name=\"bilde\">
+		Navn: <input type=\"text\" value={$row['navn']} name=\"barnavn\"><br>
+		Lokasjon: <input type=\"text\" value={$row['lokasjon']} name=\"lokasjon\"><br>
+		Frivillige: <input type=\"text\" value={$row['frivillige']} name=\"frivillige\"><br>
+		Ansvarlig: <input type=\"text\" value={$row['ansvarlig']} name=\"ansvarlig\"><br>
+		Bilde: <input type=\"text\" value={$row['bilde']} name=\"bilde\"><br>
 
 		<input type=\"submit\" name= testa2 value=\"Lagre endring\">
 		</form>";		
@@ -127,11 +127,11 @@ echo "<h2>Legg til bar</h2>";
 echo"
 <form method=\"post\">
 <input type=\"hidden\" name=\"nybar\" value=\"1\"> 
-Navn: <input type=\"text\" name=\"barnavn\">
-Lokasjon: <input type=\"text\" name=\"lokasjon\">
-Frivillige: <input type=\"text\" name=\"frivillige\">
-Ansvarlig: <input type=\"text\" name=\"ansvarlig\">
-Bilde: <input type=\"text\" name=\"bilde\">
+Navn: <input type=\"text\" value=\"barnavn\" name=\"barnavn\"><br>
+Lokasjon: <input type=\"text\" value=\"0\" name=\"lokasjon\"><br>
+Frivillige: <input type=\"text\" value=\"0\" name=\"frivillige\"><br>
+Ansvarlig: <input type=\"text\" value=\"0\" name=\"ansvarlig\"><br>
+Bilde: <input type=\"text\" value=\"0\" name=\"bilde\"><br>
 <input type=\"submit\" value=\"Legg til\">
 </form>";
 
